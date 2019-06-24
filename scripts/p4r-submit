@@ -15,4 +15,4 @@ fi
 
 problem=$1
 
-curl -X PUT "localhost:8599/submit?repo=$repo&pset=$pset&problem=$problem"
+curl -X PUT "anodes.eecs.umich.edu:8599/submit?repo=$repo&pset=$pset&problem=$problem"

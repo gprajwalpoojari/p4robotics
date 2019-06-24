@@ -8,4 +8,4 @@ fi
 
 choice=$1
 
-curl -X PUT "localhost:8599/clicker?repo=$repo&choice=$choice"
+curl -X PUT "anodes.eecs.umich.edu:8599/clicker?repo=$repo&choice=$choice"
