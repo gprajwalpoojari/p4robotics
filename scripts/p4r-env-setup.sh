@@ -8,8 +8,8 @@ if ! grep gcc-7.1.0 ~/.profile > /dev/null; then
     if [ -f ~/.zshrc ]; then
         echo "$rcAdd" >> ~/.zshrc
     fi
-    $profileAddition
-    $rcAdd
+    eval "$profileAddition"
+    eval "$rcAdd"
 else
     echo "no changes made"
 fi
