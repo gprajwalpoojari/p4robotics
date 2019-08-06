@@ -38,10 +38,6 @@ void tst_destroy(tst_t *tst) {
 
 }
 
-void tst_node_add(tst_node_t *node, const char *word) {
-
-}
-
 void tst_add(tst_t *tst, const char *word) {
 
 }
@@ -82,9 +78,10 @@ int main(int argc, char **argv) {
     }
     fclose(f);
 
-    // tst_add(tst, "read");
-    // tst_add(tst, "reads");
-    // tst_add(tst, "reading");
+    // tst_add(tst, "the");
+    // tst_add(tst, "tea");
+    // tst_add(tst, "that");
+    // tst_add(tst, "thee");
     // tst_add(tst, "hospital");
 
     for (int i = 1; i < argc; i++) {
