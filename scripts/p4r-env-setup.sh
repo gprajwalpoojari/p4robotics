@@ -4,8 +4,13 @@ if [[ $0 == $BASH_SOURCE ]]; then
     exit 1
 fi
 
-if ! grep gcc-7.1.0 ~/.profile > /dev/null; then
-    profileAddition='export PATH=/usr/um/gcc-7.1.0/bin/:/usr/um/git-2.14.1/bin/:/usr/um/vscode-1.32.3/bin/:$PATH'
+if ! grep "/usr/bin/modulecmd" ~/.profile > /dev/null; then
+    profileAddition="
+if [ -f /usr/bin/modulecmd ] ; then
+    module load gcc/7.1.0
+    module load git/2.14.1
+    module load vscode/1.32.3
+fi"
     echo "$profileAddition" >> ~/.profile
     DIR="$( cd "$( dirname "$0" )" >/dev/null 2>&1 && pwd )"
     rcAdd="export PATH=$DIR:\$PATH"
