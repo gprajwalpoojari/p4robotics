@@ -6,7 +6,7 @@ if [ -z "$repo" ]; then
 fi
 
 repo_dir=$(git rev-parse --show-toplevel)
-pset=$(pwd | sed "s:$repo_dir::g" | tr -d '/')
+pset=$(pwd -P | sed "s:$repo_dir::g" | tr -d '/')
 if [ -z "$pset" ]; then
     echo "Error: not in a problem/assignment subdirectory"
     echo "Try using cd to move into the directory you want to submit"
