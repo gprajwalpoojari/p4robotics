@@ -111,7 +111,7 @@ void *image_server_run(void *user) {
     signal(SIGPIPE, SIG_IGN);
 
     char *port = user;
-    printf("Serving images at http://localhost:%s/image.bmp\n", port);
+    fprintf(stderr, "Serving images at http://localhost:%s/image.bmp\n", port);
 
     int server_num = start_server(port);
     while (1) {
