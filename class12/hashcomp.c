@@ -12,9 +12,10 @@ typedef struct test_entry {
     int n;
 } test_entry_t;
 
-void evaluate_hash_reduce(int n_entries, test_entry_t *entries, bool fast_mode,
+void evaluate_hash_reduce(int n_entries, test_entry_t *entries,
                           uint32_t (*hash_f)(uint8_t *, int), uint32_t (*reduce_f)(uint32_t)) {
     clock_t start = clock();
+    // you can use the function pointers like this!
     uint32_t hash = reduce_f(hash_f(entries[0].data, entries[0].n));
 }
 
@@ -43,7 +44,7 @@ int main(int argc, char **argv) {
 
     for (int hash_i = 0; hash_i < n_hash_functions; hash_i++) {
         for (int reduce_i = 0; reduce_i < n_reduce_functions; reduce_i++) {
-            evaluate_hash_reduce(n_entries, entries, fast_mode, hash_functions[hash_i],
+            evaluate_hash_reduce(n_entries, entries, hash_functions[hash_i],
                                  reduce_functions[reduce_i]);
         }
         printf("\n");
