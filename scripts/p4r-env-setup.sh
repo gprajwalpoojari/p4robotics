@@ -39,7 +39,8 @@ export PATH=$script_folder:\$PATH
     fi
 
     echo "Success!"
-    echo "Now run 'source ~/.profile' and you will be done"
+    # echo "Now run 'source ~/.profile' and you will be done"
+    echo "Now run 'source ~/.bashrc' and you will be done"
 else
     echo "no changes made"
 fi
