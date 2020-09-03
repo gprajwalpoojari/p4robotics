@@ -20,27 +20,46 @@ if ! grep "p4r-env-setup.sh" ~/.bashrc > /dev/null || test $1; then
 #     module load vscode/1.32.3
 #     module load cmake/3.12.0
 # fi
-#
-# if [ -f \$HOME/.bashrc ]; then
-#     source \$HOME/.bashrc
-# fi
-# "
 
-    rcAddition="
+    bashprofileAddition="
+# Added by p4r-env-setup.sh
+if [ -f \$HOME/.bashrc ]; then
+    source \$HOME/.bashrc
+fi
+"
+
+    zshprofileAddition="
+# Added by p4r-env-setup.sh
+if [ -f \$HOME/.zshrc ]; then
+    source \$HOME/.zshrc
+fi
+"
+
+    bashrcAddition="
 # Added by p4r-env-setup.sh
 export PS1='\[\e]0;\u: \w\a\]\[\033[01;32m\]\u\[\033[00m\]:\[\033[01;34m\]\w\[\033[00m\]\$ '
 export PATH=$script_folder:\$PATH
 "
 
-    echo "$profileAddition" >> ~/.profile
-    echo "$rcAddition" >> ~/.bashrc
-    if [ -f ~/.zshrc ]; then
-        echo "$rcAddition" >> ~/.zshrc
+    zshrcAddition="
+# Added by p4r-env-setup.sh
+export PATH=$script_folder:\$PATH
+"
+
+    echo "$bashprofileAddition" >> ~/.bash_profile
+    echo "$bashrcAddition" >> ~/.bashrc
+
+    if which zsh ; then
+        echo "$zshprofileAddition" >> ~/.zprofile
+        echo "$zshrcAddition" >> ~/.zshrc
+        echo "Success!"
+        echo "Now run 'source ~/.zshrc' if you are using zsh"
+        echo "or 'source ~/.bashrc' if you are using bash"
+    else
+        echo "Success!"
+        echo "Now run 'source ~/.bashrc' and you will be done"
     fi
 
-    echo "Success!"
-    # echo "Now run 'source ~/.profile' and you will be done"
-    echo "Now run 'source ~/.bashrc' and you will be done"
 else
     echo "no changes made"
 fi
