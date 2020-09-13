@@ -1,10 +1,19 @@
 #include <stdlib.h>
 
-char *trit_encodings[243];
+#define N_TRITS 243
+char *trit_encodings[N_TRITS];
 
 int main(void) {
-    for (int i = 0; i < 243; i++) {
+    // at the very beginning of your program, making the table
+    for (int i = 0; i < N_TRITS; i++) {
         trit_encodings[i] = calloc(sizeof(char), 6);
+    }
+
+
+
+    // at the very end of your program, cleaning up memory
+    for (int i = 0; i < N_TRITS; i++) {
+        free(trit_encodings[i]);
     }
     return 0;
 }
