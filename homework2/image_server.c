@@ -19,6 +19,10 @@
 
 #include "bmp.h"
 
+#ifndef MSG_NOSIGNAL
+#define MSG_NOSIGNAL 0
+#endif
+
 #define MAX_READ_BYTES 1024
 #define BLOCK_SIZE 1024
 
@@ -130,6 +134,10 @@ void image_server_start(char *port) {
     if (!image_server_started) {
         image_server_started = true;
         pthread_create(&image_server_thread, NULL, image_server_run, port);
+
+        // give it a moment to "boot up"
+        struct timespec interval = {0, 10 * 1000 * 1000};
+        nanosleep(&interval, NULL);
     }
 }
 
