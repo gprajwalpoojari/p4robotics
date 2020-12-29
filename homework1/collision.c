@@ -40,9 +40,7 @@ bool check_opposite(line_t line, line_t points) {
     if (cross[0] == 0 && cross[1] == 0) {
       return false;
     }
-    else {
-      return true;
-    }
+    return true;
   }
   return false;
 }
@@ -50,9 +48,7 @@ bool check_opposite(line_t line, line_t points) {
 bool contains(polygon_t *polygons) {
   bool check[2] = {true, true};
   for (int i = 0, k = 1; i < 2; i++, k--) {
-    int count_pos = 0;
-    int count_neg = 0;
-    int count_zero = 0;
+    int count_pos = 0, count_neg = 0, count_zero = 0;
     for (int j = 0; j < polygons[i].n_sides; j++) {
       if (cross_product(polygons[i].lines[j], polygons[k].points[0]) > 0) {
         count_pos++;
@@ -128,6 +124,14 @@ void read_coordinates(FILE *f, polygon_t *polygon) {
   }
 }
 
+void free_memory(polygon_t *polygons) {
+  for (int i = 0; i < 2; i++) {
+    free(polygons[i].lines);
+    free(polygons[i].points);
+  }
+  free(polygons);
+}
+
 int main(void) {
   polygon_t *polygons = calloc(2, sizeof(polygon_t));
   FILE *f = fopen("polygons.csv", "r");
@@ -154,7 +158,6 @@ int main(void) {
     polygons[i].n_sides = n_points;
     polygons[i].points = calloc(n_points, sizeof(point_t));
     polygons[i].lines = calloc(n_points, sizeof(line_t));
-
     read_coordinates(f, &polygons[i]);
     transform_points(&polygons[i], transformation_matrix);
     construct_lines(&polygons[i]);
@@ -167,18 +170,19 @@ int main(void) {
       opposites[1] = check_opposite(lines[1], lines[0]);
       if (opposites[0] && opposites[1]) {
         printf("Collision\n");
-        return 0;
-      }
-      else {
-        if (contains(polygons)) {
-          printf("Collision\n");
-        }
-        else {
-          printf("No Collision!\n");
-        }
+        free_memory(polygons);
+        fclose(f);
         return 0;
       }
     }
   }
-  free(polygons);
+  if (contains(polygons)) {
+      printf("Collision\n");
+  }
+  else {
+      printf("No Collision!\n");
+  }
+  free_memory(polygons);
+  fclose(f);
+  return 0;
 }
