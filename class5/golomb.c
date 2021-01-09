@@ -46,6 +46,6 @@ int main (int argc, char **argv) {
   else if (atoi(argv[1]) == 1){
       printf("%i\n", vec.data[0]);
   }
-
+  free(vec.data);
   return 0;
 }
