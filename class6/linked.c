@@ -14,21 +14,67 @@ typedef struct list {
 } list_t;
 
 list_t *list_create(void) {
+  list_t *list = malloc(sizeof(*list));
+  list->start = malloc(sizeof(*(list->start)));
+  list->end = malloc(sizeof(*(list->end)));
+  list->start->prev = NULL;
+  list->start->next = list->end;
+  list->end->prev = list->start;
+  list->end->next = NULL;
+  return list;
 }
 
 void list_push_start(list_t *list, int value) {
+  node_t *node = malloc(sizeof(*node));
+  node->value = value;
+  node->prev = list->start;
+  node->next = list->start->next;
+  list->start->next->prev = node;
+  list->start->next = node;
 }
 
 void list_push_end(list_t *list, int value) {
+  node_t *node = malloc(sizeof(*node));
+  node->value = value;
+  node->next = list->end;
+  node->prev = list->end->prev;
+  list->end->prev->next = node;
+  list->end->prev = node;
 }
 
 int list_pop_start(list_t *list) {
+  if(list->start->next != list->end) {
+    node_t *pop = list->start->next;
+    list->start->next = list->start->next->next;
+    list->start->next->prev = list->start;
+    pop->next = NULL;
+    pop->prev = NULL;
+    int value = pop->value;
+    free(pop);
+    return value;
+  }
 }
 
 int list_pop_end(list_t *list) {
+  if (list->end->prev != list->start) {
+    node_t *pop = list->end->prev;
+    list->end->prev = list->end->prev->prev;
+    list->end->prev->next = list->end;
+    pop->next = NULL;
+    pop->prev = NULL;
+    int value = pop->value;
+    free(pop);
+    return value;
+  }
 }
 
 void list_destroy(list_t *list) {
+  while(list->start->next->next != NULL) {
+    int t = list_pop_start(list);
+  }
+  free(list->start);
+  free(list->end);
+  free(list);
 }
 
 int main(int argc, char **argv) {
