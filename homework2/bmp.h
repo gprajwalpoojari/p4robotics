@@ -9,7 +9,8 @@
 
 // https://docs.microsoft.com/en-us/windows/win32/api/wingdi/ns-wingdi-tagbitmapfileheader
 typedef struct tagBITMAPFILEHEADER {
-    WORD bfType;
+    uint8_t F_bfType;
+    uint8_t L_bfType;
     DWORD bfSize;
     WORD bfReserved1;
     WORD bfReserved2;
